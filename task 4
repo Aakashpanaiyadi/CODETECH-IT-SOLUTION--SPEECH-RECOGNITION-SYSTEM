@@ -1,0 +1,26 @@
+#define LED_PIN 7  
+
+void setup() {
+    pinMode(LED_PIN, OUTPUT);
+    Serial.begin(9600);  
+    Serial.println("Type 'Turn on light' or 'Turn off light' in Serial Monitor.");
+}
+
+void loop() {
+    if (Serial.available() > 0) {  
+        String command = Serial.readStringUntil('\n');  
+        command.trim();  
+
+        if (command.equalsIgnoreCase("Turn on light")) {
+            digitalWrite(LED_PIN, HIGH);
+            Serial.println("Light Turned ON");
+        } 
+        else if (command.equalsIgnoreCase("Turn off light")) {
+            digitalWrite(LED_PIN, LOW);
+            Serial.println("Light Turned OFF");
+        } 
+        else {
+            Serial.println("Unknown command! Try 'Turn on light' or 'Turn off light'.");
+        }
+    }
+}
